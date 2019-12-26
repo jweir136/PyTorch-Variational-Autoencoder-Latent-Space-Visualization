@@ -30,7 +30,7 @@ trainloader = data.DataLoader(trainfolder, batch_size=128, shuffle=True, num_wor
 testloader = data.DataLoader(testfolder, batch_size=1, shuffle=True, num_workers=6)
 
 vae = BasicMNISTVAE().cuda()
-sgd = optim.SGD(vae.parameters(), lr=0.01, momentum=0.9)
+sgd = optim.Adam(vae.parameters(), lr=1e-3)
 
 # TODO : Train the model!
 # TODO : Push the script to a Github repo and a paperspace gradient instance
@@ -50,7 +50,7 @@ for epoch in range(50):
   print("[{}] Loss={}".format(epoch+1, loss.detach().cpu().numpy()))
   
 
-  random_sample = torch.randn(128, 20).cuda().float()
+  random_sample = torch.randn(128, 60).cuda().float()
   random_image = vae.decode(random_sample)
   plt.imshow(np.moveaxis(random_image.detach().cpu().numpy()[0], 0, -1).reshape(28, 28), cmap='gray')
   plt.savefig("images/generated_epoch_{}.png".format(epoch+1)) 

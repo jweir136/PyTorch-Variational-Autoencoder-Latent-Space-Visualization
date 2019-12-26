@@ -9,10 +9,10 @@ class BasicMNISTVAE(nn.Module):
       nn.Linear(784, 400),
       nn.ReLU(True)
     )
-    self.mu_layer = nn.Linear(400, 20)
-    self.logvar_layer = nn.Linear(400, 20)
+    self.mu_layer = nn.Linear(400, 60)
+    self.logvar_layer = nn.Linear(400, 60)
     self.decoder = nn.Sequential(
-      nn.Linear(20, 400),
+      nn.Linear(60, 400),
       nn.Linear(400, 784),
       nn.Sigmoid()
     )
